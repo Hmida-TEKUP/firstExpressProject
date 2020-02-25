@@ -8,3 +8,8 @@ let students = [
     {id: 3, name: 'student3', age: 18}
 ];
 
+app.get('/api/students', (req,res)=>{
+    res.send(students);
+});
+
+app.listen(3000, () => console.log(`Listening on 3000....`));
