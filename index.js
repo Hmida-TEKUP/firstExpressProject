@@ -45,4 +45,16 @@ app.post('/api/students', (req,res)=>{
     res.status(201).send(student);
 });
 
+app.delete('/api/students/id/:id', (req,res)=>{
+    let validate_res = Joi.validate(req.params,path_id_validator);
+    if(validate_res.error)
+        return res.status(400).send(validate_res.error.details[0].message);
+    let student = students.find(s => s.id === parseInt(req.params.id));
+    if(!student) return res.status(404).send(`Student not found with this id ${req.params.id}`);
+    students = students.filter(s => s.id !== parseInt(req.params.id));
+    
+    res.send(student);
+});
+
+
 app.listen(port, () => console.log(`Listening on ${port}....`));
