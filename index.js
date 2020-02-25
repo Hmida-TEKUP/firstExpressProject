@@ -22,6 +22,8 @@ app.get('/api/students/id/:iden', (req,res)=>{
 });
 
 app.post('/api/students', (req,res)=>{
+    if(!req.body.name || !req.body.age)
+        return res.status(400).send('name or age not found');
     let student = {
         id: students[students.length-1].id+1,
         name: req.body.name,
