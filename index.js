@@ -1,6 +1,9 @@
 const express = require('express');
 
 const app = express();
+const port  = process.env.PORT || 3000;
+
+app.use(express.json());
 // Like a DB
 let students = [
     {id: 1, name: 'student1', age: 22},
@@ -18,4 +21,14 @@ app.get('/api/students/id/:iden', (req,res)=>{
     res.send(student);
 });
 
-app.listen(3000, () => console.log(`Listening on 3000....`));
+app.post('/api/students', (req,res)=>{
+    let student = {
+        id: students[students.length-1].id+1,
+        name: req.body.name,
+        age: req.body.age
+    };
+    students.push(student);
+    res.status(201).send(student);
+});
+
+app.listen(port, () => console.log(`Listening on ${port}....`));
