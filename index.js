@@ -1,11 +1,14 @@
 const express = require('express');
 const Joi = require('joi');
 const app = express();
-const logger = require('./logger')
+const morgan = require('morgan');
 const port  = process.env.PORT || 3000;
 
+console.log('Env of Node :',app.get('env'));
+
 app.use(express.json());
-app.use(logger);
+if(app.get('env')==='development')
+    app.use(morgan('tiny'));
 
 
 // Like a DB
