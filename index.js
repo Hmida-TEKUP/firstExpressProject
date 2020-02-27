@@ -3,13 +3,14 @@ const Joi = require('joi');
 const app = express();
 const morgan = require('morgan');
 const config = require('config');
+const appDebug = require('debug')('app:debug');
 const port  = process.env.PORT || 3000;
 
 
-console.log('App Name :',config.get('name'));
-console.log('App used mail :',config.get('mail.host'));
-console.log('App used mail password :',config.get('mail.password'));
-console.log('Env of Node :',app.get('env'));
+appDebug('App Name :',config.get('name'));
+appDebug('App used mail :',config.get('mail.host'));
+appDebug('App used mail password :',config.get('mail.password'));
+appDebug('Env of Node :',app.get('env'));
 
 app.use(express.json());
 if(app.get('env')==='development')
@@ -94,4 +95,4 @@ app.put('/api/students/id/:id', (req,res)=>{
     res.send(student);
 });
 
-app.listen(port, () => console.log(`Listening on ${port}....`));
+app.listen(port, () => appDebug(`Listening on ${port}....`));
