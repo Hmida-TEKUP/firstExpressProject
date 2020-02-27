@@ -1,9 +1,13 @@
 const express = require('express');
 const Joi = require('joi');
 const app = express();
+const logger = require('./logger')
 const port  = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(logger);
+
+
 // Like a DB
 let students = [
     {id: 1, name: 'student1', age: 22},
