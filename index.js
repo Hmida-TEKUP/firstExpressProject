@@ -2,8 +2,13 @@ const express = require('express');
 const Joi = require('joi');
 const app = express();
 const morgan = require('morgan');
+const config = require('config');
 const port  = process.env.PORT || 3000;
 
+
+console.log('App Name :',config.get('name'));
+console.log('App used mail :',config.get('mail.host'));
+console.log('App used mail password :',config.get('mail.password'));
 console.log('Env of Node :',app.get('env'));
 
 app.use(express.json());
