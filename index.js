@@ -27,6 +27,18 @@ app.get('/api/students/id/:id', (req,res)=>{
     res.send(student);
 });
 
+let path_name_validator = {
+    name : Joi.string().min(3).max(12).required()
+}
+app.get('/api/students/name/:name', (req,res)=>{
+    let validate_res = Joi.validate(req.params,path_name_validator);
+    if(validate_res.error)
+        return res.status(400).send(validate_res.error.details[0].message);
+    let student = students.find(s => s.name === req.params.name);
+    if(!student) return res.status(404).send(`Student not found with this id ${req.params.name}`);
+    res.send(student);
+});
+
 let student_validator_schema = {
     name : Joi.string().min(3).max(12).required(),
     age : Joi.number().positive().required()
